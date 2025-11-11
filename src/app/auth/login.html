@@ -1,0 +1,29 @@
+<div class="login-container">
+  <h2>Iniciar sesión</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <label>
+      Usuario
+      <input formControlName="username" autocomplete="username" />
+    </label>
+    <div *ngIf="username?.touched && username?.invalid" class="field-error">
+      <small *ngIf="username?.errors?.['required']">Usuario requerido</small>
+    </div>
+
+    <label>
+      Clave
+      <input formControlName="password" type="password" autocomplete="current-password" />
+    </label>
+    <div *ngIf="password?.touched && password?.invalid" class="field-error">
+      <small *ngIf="password?.errors?.['required']">Clave requerida</small>
+    </div>
+
+    <div class="actions">
+      <button type="submit" [disabled]="form.invalid || loading">
+        {{ loading ? 'Ingresando...' : 'Entrar' }}
+      </button>
+    </div>
+
+    <div *ngIf="error" class="error">{{ error }}</div>
+  </form>
+</div>

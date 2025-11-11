@@ -1,0 +1,42 @@
+<div class="container">
+  <h2>Libros</h2>
+  <div class="toolbar">
+    <button (click)="onNew()">Nuevo libro</button>
+  </div>
+
+  <div *ngIf="loading()">
+    Cargando...
+  </div>
+
+  <table *ngIf="!loading() && libros().length > 0" class="tabla">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Autor</th>
+        <th>Año</th>
+        <th>Género</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let l of libros()">
+        <td>{{ l.titulo }}</td>
+        <td>{{ l.autor }}</td>
+        <td>{{ l.anio }}</td>
+        <td>{{ l.genero }}</td>
+        <td>
+          <button (click)="onEdit(l.id)">Editar</button>
+          <button (click)="onDelete(l.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading() && libros().length === 0">No hay libros.</div>
+
+  <div class="pagination">
+    <button (click)="previous()" [disabled]="page() === 0">Anterior</button>
+    <span>Página {{ page() + 1 }} de {{ totalPages() }}</span>
+    <button (click)="next()" [disabled]="page() >= totalPages() - 1">Siguiente</button>
+  </div>
+</div>

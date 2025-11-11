@@ -1,0 +1,39 @@
+<!-- src/app/libros/libros-form/libros-form.html -->
+<div class="form-container">
+  <h2>{{ id ? 'Editar libro' : 'Nuevo libro' }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <label>
+      Título
+      <input formControlName="titulo" type="text" />
+    </label>
+    <!-- Acceso seguro al control -->
+    <div *ngIf="titulo?.touched && titulo?.invalid">
+      <small *ngIf="titulo?.errors?.['required']">Requerido</small>
+      <small *ngIf="titulo?.errors?.['maxlength']">Máximo 255 caracteres</small>
+    </div>
+
+    <label>
+      Autor
+      <input formControlName="autor" type="text" />
+    </label>
+    <div *ngIf="autor?.touched && autor?.invalid">
+      <small *ngIf="autor?.errors?.['required']">Requerido</small>
+    </div>
+
+    <label>
+      Año
+      <input formControlName="anio" type="text" />
+    </label>
+
+    <label>
+      Género
+      <input formControlName="genero" type="text" />
+    </label>
+
+    <div class="actions">
+      <button type="submit" [disabled]="loading">{{ id ? 'Actualizar' : 'Crear' }}</button>
+      <button type="button" (click)="cancel()">Cancelar</button>
+    </div>
+  </form>
+</div>
